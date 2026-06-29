@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Heart 小甜心 | Bubble Tea · Belmont, MA</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink:      #E8488A;
+    --pink-lt:   #F9B8D2;
+    --pink-pale: #FDE8F1;
+    --pink-dark: #B8235E;
+    --cream:     #FFF6FA;
+    --text:      #3A1A2E;
+    --text-mid:  #7A3D60;
+    --white:     #FFFFFF;
+    --accent:    #FF8CB4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HEARTS BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 2px 2px at 12% 20%, var(--pink-lt) 100%, transparent 100%),
+      radial-gradient(ellipse 2px 2px at 85% 15%, var(--pink-lt) 100%, transparent 100%),
+      radial-gradient(ellipse 2px 2px at 50% 70%, var(--pink-lt) 100%, transparent 100%),
+      radial-gradient(ellipse 2px 2px at 30% 85%, var(--pink-lt) 100%, transparent 100%),
+      radial-gradient(ellipse 2px 2px at 70% 50%, var(--pink-lt) 100%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--pink);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    box-shadow: 0 2px 12px rgba(184,35,94,.25);
+  }
+  .nav-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: .03em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .9rem;
+    letter-spacing: .04em;
+    opacity: .9;
+    transition: opacity .2s;
+  }
+  .nav-links a:hover { opacity: 1; text-decoration: underline; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 1.5rem 4rem;
+    overflow: hidden;
+  }
+
+  /* floating bubble circles */
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--pink-lt) 0%, transparent 70%);
+    top: -140px;
+    right: -140px;
+    z-index: 0;
+    animation: floatA 7s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fcd3e7 0%, transparent 70%);
+    bottom: -100px;
+    left: -80px;
+    z-index: 0;
+    animation: floatB 9s ease-in-out infinite;
+  }
+
+  @keyframes floatA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-22px)} }
+  @keyframes floatB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(18px)} }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 700px; }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--pink-pale);
+    color: var(--pink-dark);
+    border: 2px solid var(--pink-lt);
+    border-radius: 99px;
+    padding: .35rem 1.1rem;
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3.2rem, 9vw, 6rem);
+    color: var(--pink);
+    line-height: 1;
+    margin-bottom: .4rem;
+    text-shadow: 0 4px 16px rgba(232,72,138,.18);
+    letter-spacing: .02em;
+  }
+
+  .hero-chinese {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    color: var(--text-mid);
+    margin-bottom: 1.4rem;
+    letter-spacing: .15em;
+  }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .hero-cups {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    animation: bounceCups 3s ease-in-out infinite;
+  }
+  @keyframes bounceCups { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    border-radius: 99px;
+    padding: .85rem 2.2rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+    box-shadow: 0 4px 18px rgba(232,72,138,.3);
+  }
+  .btn-primary:hover { background: var(--pink-dark); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--pink);
+    border: 2.5px solid var(--pink);
+    border-radius: 99px;
+    padding: .82rem 2.1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .btn-ghost:hover { background: var(--pink-pale); }
+
+  /* ── RATING STRIP ── */
+  .rating-strip {
+    position: relative;
+    z-index: 1;
+    background: var(--pink);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 1.1rem 2rem;
+    flex-wrap: wrap;
+  }
+  .rating-item { text-align: center; }
+  .rating-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+  .rating-label { font-size: .75rem; font-weight: 700; letter-spacing: .08em; opacity: .85; text-transform: uppercase; }
+  .rating-divider { width: 1px; height: 36px; background: rgba(255,255,255,.35); }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.8rem;
+  }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: .6rem;
+  }
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  /* ── MENU ── */
+  #menu {
+    padding: 5rem 2rem;
+    background: var(--white);
+  }
+
+  .menu-tabs {
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .tab-btn {
+    background: var(--pink-pale);
+    color: var(--pink-dark);
+    border: 2px solid var(--pink-lt);
+    border-radius: 99px;
+    padding: .5rem 1.3rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: .85rem;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .tab-btn:hover, .tab-btn.active {
+    background: var(--pink);
+    color: var(--white);
+    border-color: var(--pink);
+  }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .menu-card {
+    background: var(--cream);
+    border: 2px solid var(--pink-pale);
+    border-radius: 18px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color .2s, transform .2s;
+  }
+  .menu-card:hover { border-color: var(--pink-lt); transform: translateY(-3px); }
+  .menu-card-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+  .menu-card-sub { font-size: .78rem; color: var(--text-mid); margin-top: .1rem; }
+  .menu-card-price {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: var(--pink);
+    white-space: nowrap;
+    margin-left: .8rem;
+    flex-shrink: 0;
+  }
+
+  .menu-note {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: .85rem;
+    color: var(--text-mid);
+    font-weight: 600;
+  }
+
+  /* toppings */
+  .toppings-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .topping-chip {
+    background: var(--pink-pale);
+    border: 1.5px solid var(--pink-lt);
+    border-radius: 99px;
+    padding: .45rem 1rem;
+    font-size: .83rem;
+    font-weight: 700;
+    color: var(--pink-dark);
+  }
+
+  /* ice cream */
+  .icecream-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: .8rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .icecream-chip {
+    background: var(--cream);
+    border: 2px solid var(--pink-pale);
+    border-radius: 14px;
+    padding: .9rem 1rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: .9rem;
+    color: var(--text);
+    transition: border-color .2s;
+  }
+  .icecream-chip:hover { border-color: var(--pink); }
+  .icecream-price {
+    font-family: 'Fredoka One', cursive;
+    color: var(--pink);
+    font-size: .85rem;
+    margin-top: .25rem;
+  }
+
+  /* ── REVIEWS ── */
+  #reviews {
+    padding: 5rem 2rem;
+    background: var(--pink-pale);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .review-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 2px solid var(--pink-lt);
+    box-shadow: 0 4px 20px rgba(232,72,138,.07);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .review-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(232,72,138,.13); }
+
+  .review-stars { color: var(--pink); font-size: 1rem; letter-spacing: .06em; margin-bottom: .6rem; }
+  .review-text { font-size: .93rem; line-height: 1.65; color: var(--text); font-weight: 600; margin-bottom: 1rem; }
+  .review-author { font-size: .8rem; font-weight: 800; color: var(--text-mid); text-transform: uppercase; letter-spacing: .07em; }
+  .review-date { font-size: .75rem; color: #aaa; margin-top: .15rem; }
+
+  /* ── HOURS & VISIT ── */
+  #visit {
+    padding: 5rem 2rem;
+    background: var(--white);
+  }
+
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 680px) { .visit-grid { grid-template-columns: 1fr; } }
+
+  .visit-card {
+    background: var(--cream);
+    border: 2px solid var(--pink-pale);
+    border-radius: 22px;
+    padding: 2rem;
+  }
+  .visit-card h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--pink);
+    margin-bottom: 1.2rem;
+  }
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 0;
+    border-bottom: 1px solid var(--pink-pale);
+    font-size: .9rem;
+    font-weight: 700;
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: var(--text-mid); }
+  .hours-time { color: var(--text); }
+  .hours-closed { color: #ccc; }
+  .hours-note { font-size: .75rem; color: var(--pink); font-weight: 600; }
+
+  .contact-line {
+    display: flex;
+    align-items: flex-start;
+    gap: .8rem;
+    margin-bottom: 1.1rem;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .contact-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: .05rem; }
+
+  .holiday-note {
+    margin-top: 1rem;
+    background: var(--pink-pale);
+    border-left: 3px solid var(--pink);
+    border-radius: 8px;
+    padding: .7rem 1rem;
+    font-size: .8rem;
+    font-weight: 700;
+    color: var(--pink-dark);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--pink-dark);
+    color: var(--pink-pale);
+    text-align: center;
+    padding: 2.5rem 2rem;
+  }
+  footer .footer-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin-bottom: .4rem;
+  }
+  footer p { font-size: .85rem; opacity: .8; margin-top: .3rem; line-height: 1.7; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: .8rem; }
+    .rating-strip { gap: 1.2rem; }
+    .rating-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">♡ Sweet Heart</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#visit">Visit Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Belmont's Bubble Tea 🧋</div>
+    <h1>Sweet Heart</h1>
+    <p class="hero-chinese">小甜 · 心</p>
+    <div class="hero-cups">🧋🌿🍵</div>
+    <p class="hero-tagline">Real tea. Real avocado. Real boba pearls.<br>Handcrafted drinks loved by Belmont since 2017.</p>
+    <div class="cta-row">
+      <a href="#menu" class="btn-primary">See the Menu</a>
+      <a href="#visit" class="btn-ghost">Hours & Location</a>
+    </div>
+  </div>
+</section>
+
+<!-- RATING STRIP -->
+<div class="rating-strip">
+  <div class="rating-item">
+    <div class="rating-num">4.6 ★</div>
+    <div class="rating-label">Google Rating</div>
+  </div>
+  <div class="rating-divider"></div>
+  <div class="rating-item">
+    <div class="rating-num">108</div>
+    <div class="rating-label">Reviews</div>
+  </div>
+  <div class="rating-divider"></div>
+  <div class="rating-item">
+    <div class="rating-num">7+</div>
+    <div class="rating-label">Years in Belmont</div>
+  </div>
+  <div class="rating-divider"></div>
+  <div class="rating-item">
+    <div class="rating-num">50+</div>
+    <div class="rating-label">Menu Items</div>
+  </div>
+</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-header">
+    <span class="section-eyebrow">What We Serve</span>
+    <h2 class="section-title">Our Menu 菜單</h2>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('milk-tea')">🧋 Milk Tea</button>
+    <button class="tab-btn" onclick="showTab('smoothies')">🥑 Smoothies</button>
+    <button class="tab-btn" onclick="showTab('milk-foam')">☁️ Milk Foam</button>
+    <button class="tab-btn" onclick="showTab('classic-tea')">🍵 Classic Tea</button>
+    <button class="tab-btn" onclick="showTab('ice-cream')">🍦 Ice Cream</button>
+    <button class="tab-btn" onclick="showTab('toppings')">✨ Toppings</button>
+  </div>
+
+  <!-- MILK TEA -->
+  <div id="milk-tea" class="menu-panel active">
+    <div class="menu-grid">
+      <div class="menu-card"><div><div class="menu-card-name">Sweet Heart Black Milk Tea</div><div class="menu-card-sub">小甜心奶茶 · Med/Lg/Hot</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Jasmine Green Milk Tea</div><div class="menu-card-sub">茉莉奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Taro Milk Tea</div><div class="menu-card-sub">芋香奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Red Bean Milk Tea</div><div class="menu-card-sub">红豆奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Sesame Milk Tea</div><div class="menu-card-sub">黑芝麻奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Mango Milk Tea</div><div class="menu-card-sub">芒果奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Coconut Milk Tea</div><div class="menu-card-sub">椰汁奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Strawberry Milk Tea</div><div class="menu-card-sub">草莓奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Blueberry Milk Tea</div><div class="menu-card-sub">蓝莓奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Almond Milk Tea</div><div class="menu-card-sub">杏仁奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Pineapple Milk Tea</div><div class="menu-card-sub">凤梨奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Peach Milk Tea</div><div class="menu-card-sub">水蜜桃奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Lychee Milk Tea</div><div class="menu-card-sub">荔枝奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Green Honeydew Milk Tea</div><div class="menu-card-sub">绿蜜瓜奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Thai Tea</div><div class="menu-card-sub">泰式奶茶</div></div><div class="menu-card-price">$4.25+</div></div>
+    </div>
+    <p class="menu-note">Med $4.25 · Lg $4.75 · Hot $4.75 · Toppings $0.75 each</p>
+  </div>
+
+  <!-- SMOOTHIES -->
+  <div id="smoothies" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><div><div class="menu-card-name">Avocado</div><div class="menu-card-sub">牛油果奶昔 · Fan Favorite!</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Taro</div><div class="menu-card-sub">芋香奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Red Bean</div><div class="menu-card-sub">红豆奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Sesame</div><div class="menu-card-sub">黑芝麻奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Mango</div><div class="menu-card-sub">香芒奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Coconut</div><div class="menu-card-sub">椰果奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Strawberry</div><div class="menu-card-sub">草莓奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Blueberry</div><div class="menu-card-sub">蓝莓奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Almond</div><div class="menu-card-sub">杏仁奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Pineapple</div><div class="menu-card-sub">凤梨奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Peach</div><div class="menu-card-sub">水蜜桃奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Lychee</div><div class="menu-card-sub">荔枝奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Green Honeydew</div><div class="menu-card-sub">绿蜜瓜奶昔</div></div><div class="menu-card-price">$4.75+</div></div>
+    </div>
+    <p class="menu-note">Med $4.75 · Lg $5.25 · Toppings $0.75 each · Made with real fruit</p>
+  </div>
+
+  <!-- MILK FOAM -->
+  <div id="milk-foam" class="menu-panel">
+    <div class="menu-grid" style="max-width:600px">
+      <div class="menu-card"><div><div class="menu-card-name">Milk Foam Matcha Tea</div><div class="menu-card-sub">抹茶奶盖</div></div><div class="menu-card-price">$4.50+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Milk Foam Latte Coffee</div><div class="menu-card-sub">拿铁奶盖</div></div><div class="menu-card-price">$4.50+</div></div>
+    </div>
+    <p class="menu-note">Med $4.50 · Lg $4.75 · Hot $4.75</p>
+  </div>
+
+  <!-- CLASSIC TEA -->
+  <div id="classic-tea" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card"><div><div class="menu-card-name">Sweet Heart Black Tea</div><div class="menu-card-sub">小甜心红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Peach Black Tea</div><div class="menu-card-sub">水蜜桃红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Lychee Black Tea</div><div class="menu-card-sub">荔枝红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Honey Black Tea</div><div class="menu-card-sub">蜂蜜红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Mint Black Tea</div><div class="menu-card-sub">薄荷红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Mango Black Tea</div><div class="menu-card-sub">香芒红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Passion Fruit Black Tea</div><div class="menu-card-sub">百香果红茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Sweet Heart Green Tea</div><div class="menu-card-sub">小甜心绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Peach Green Tea</div><div class="menu-card-sub">水蜜桃绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Lychee Green Tea</div><div class="menu-card-sub">荔枝绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Honey Green Tea</div><div class="menu-card-sub">蜂蜜绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Mint Green Tea</div><div class="menu-card-sub">薄荷绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Mango Green Tea</div><div class="menu-card-sub">香芒绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+      <div class="menu-card"><div><div class="menu-card-name">Passion Fruit Green Tea</div><div class="menu-card-sub">百香果绿茶</div></div><div class="menu-card-price">$4.00+</div></div>
+    </div>
+    <p class="menu-note">Med $4.00 · Lg $4.25 · Hot $4.25 · Toppings $0.75 each</p>
+  </div>
+
+  <!-- ICE CREAM -->
+  <div id="ice-cream" class="menu-panel">
+    <div class="icecream-grid">
+      <div class="icecream-chip">Mocha Chip<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Pistachio<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Vanilla<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Strawberry Cheesecake<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Chocolate Chip<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Fudge Ripple<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Coffee<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Mint Chocolate Chip<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Cookie & Cream<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Cookie Monster<div class="icecream-price">from $2.98</div></div>
+      <div class="icecream-chip">Bubblegum<div class="icecream-price">from $2.98</div></div>
+    </div>
+    <p class="menu-note" style="margin-top:1.5rem">Sm $2.98 · Med $5.25 · Lg $6.75 · XLg $8.75</p>
+  </div>
+
+  <!-- TOPPINGS -->
+  <div id="toppings" class="menu-panel">
+    <div class="toppings-grid">
+      <div class="topping-chip">Milk Foam</div>
+      <div class="topping-chip">Pearl</div>
+      <div class="topping-chip">Grass Jelly</div>
+      <div class="topping-chip">Pineapple Jelly</div>
+      <div class="topping-chip">Red Bean</div>
+      <div class="topping-chip">Coffee Jelly</div>
+      <div class="topping-chip">Mango Jelly</div>
+      <div class="topping-chip">Lychee Jelly</div>
+      <div class="topping-chip">Strawberry Jelly</div>
+      <div class="topping-chip">Lychee Popping Boba</div>
+      <div class="topping-chip">Mango Popping Boba</div>
+      <div class="topping-chip">Peach Popping Boba</div>
+      <div class="topping-chip">Yogurt Popping Boba</div>
+    </div>
+    <p class="menu-note" style="margin-top:1.5rem">$0.75 each · 加料每项回收$0.75</p>
+    <p style="text-align:center;font-size:.8rem;color:var(--pink-dark);margin-top:.5rem;font-weight:700;">Please inform us of any food allergies before placing your order.</p>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-header">
+    <span class="section-eyebrow">What People Are Saying</span>
+    <h2 class="section-title">★ 4.6 on Google · 108 Reviews</h2>
+  </div>
+  <div class="reviews-grid">
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"This place is FANTASTIC. Best avocado smoothie I've had in a long time, and their milk teas are amazing."</p>
+      <div class="review-author">Cassie Mckay</div>
+      <div class="review-date">Local Guide · 3 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I would give 6 stars if I could, because this place is AMAZING!! Clean, the staff is very friendly and thoughtful, the boba tea and ice cream is DELICIOUS, and I probably come here 1–2 times a week."</p>
+      <div class="review-author">Pru G</div>
+      <div class="review-date">Local Guide · 4 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Best Bubble Tea I've ever had!! The passion fruit iced tea is incredibly delicious. And they have a pretty big size cup which I love!!"</p>
+      <div class="review-author">Leah Babroudi</div>
+      <div class="review-date">5 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"My sister and I LOVE this place!!! The shop is cute, and the staff is always so friendly. I recommend the smoothie boba, and the Thai tea was yum."</p>
+      <div class="review-author">Anji Friedbauer</div>
+      <div class="review-date">3 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Great boba place. Their avocado boba uses real avocado. One of our favorites among many places we've tried."</p>
+      <div class="review-author">Irwan Djajadi</div>
+      <div class="review-date">Local Guide · 2 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I'm very surprised to find a bubble tea place in Belmont — they use real tea and offer alternative milk. No need to go to Cambridge for milk teas anymore, come here!"</p>
+      <div class="review-author">Tiffany Yu</div>
+      <div class="review-date">4 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Often come here after playing pickleball down the street — great refresh after a workout. Best avocado smoothie I've had; they put actual avocado in."</p>
+      <div class="review-author">Roxanne Scott</div>
+      <div class="review-date">2 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Fantastic bubble tea and many options. They made the best possible boba tea we had in a long time — took their time but the product was great."</p>
+      <div class="review-author">Rahul Joshi</div>
+      <div class="review-date">Local Guide · 6 years ago</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I come here all the time — I don't think I've gone a month without getting boba from Sweet Heart! The people who work there are so nice ❤️"</p>
+      <div class="review-author">Maddie</div>
+      <div class="review-date">3 years ago</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="section-header">
+    <span class="section-eyebrow">Find Us</span>
+    <h2 class="section-title">Hours & Location</h2>
+  </div>
+
+  <div class="visit-grid">
+    <div class="visit-card">
+      <h3>🕐 Hours</h3>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">12:30 – 8:30 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-closed">Closed</span></div>
+      <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">12:30 – 8:30 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">12:30 – 8:30 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">12:30 – 8:30 PM</span></div>
+      <div class="hours-row">
+        <span class="hours-day">Friday<br><span class="hours-note">4th of July (Observed)</span></span>
+        <span class="hours-time">12:30 – 8:30 PM<br><span class="hours-note">Hours may differ</span></span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Saturday<br><span class="hours-note">4th of July</span></span>
+        <span class="hours-time">12:30 – 8:30 PM<br><span class="hours-note">Hours may differ</span></span>
+      </div>
+      <div class="holiday-note">🎆 Holiday hours may vary on July 4th weekend. Call ahead to confirm!</div>
+    </div>
+
+    <div class="visit-card">
+      <h3>📍 Find Us</h3>
+      <div class="contact-line">
+        <span class="contact-icon">📍</span>
+        <span>386 Trapelo Rd<br>Belmont, MA 02478<br><em style="font-size:.8rem;color:var(--text-mid)">Street parking available</em></span>
+      </div>
+      <div class="contact-line">
+        <span class="contact-icon">📞</span>
+        <a href="tel:6176512665" style="color:var(--pink);font-weight:800;text-decoration:none;">(617) 651-2665</a>
+      </div>
+      <div class="contact-line">
+        <span class="contact-icon">⭐</span>
+        <span>4.6 stars · 108 Google reviews<br><a href="https://maps.google.com/?q=Sweet+Heart+Bubble+Tea+386+Trapelo+Rd+Belmont+MA" target="_blank" style="color:var(--pink);font-weight:800;">Get Directions →</a></span>
+      </div>
+      <div class="contact-line">
+        <span class="contact-icon">♿</span>
+        <span style="font-size:.85rem;color:var(--text-mid)">Family-run shop · Take-out friendly · Small seating area</span>
+      </div>
+      <div style="margin-top:1rem;">
+        <a href="https://maps.google.com/?q=Sweet+Heart+Bubble+Tea+386+Trapelo+Rd+Belmont+MA" target="_blank" class="btn-primary" style="display:inline-block;font-size:.85rem;padding:.7rem 1.5rem;">Open in Google Maps</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">♡ Sweet Heart 小甜心</div>
+  <p>386 Trapelo Rd, Belmont, MA 02478 · (617) 651-2665</p>
+  <p>Open Tue–Sun 12:30–8:30 PM · Closed Mondays</p>
+  <p style="margin-top:.8rem;font-size:.75rem;opacity:.6">Please inform us of any food allergies before ordering · 如果您有任何食物过敏，请在下单前告知我们</p>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
